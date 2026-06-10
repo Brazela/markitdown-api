@@ -36,28 +36,28 @@ def convert():
         # -----------------------------
         if is_image(path):
             with open(path, "rb") as f:
-    b64 = base64.b64encode(f.read()).decode("utf-8")
+                b64 = base64.b64encode(f.read()).decode("utf-8")
 
-result = client.chat.completions.create(
-    model=IMAGE_MODEL,
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": "Convert this image into clean markdown text."
-                },
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": f"data:image/png;base64,{b64}"
+            result = client.chat.completions.create(
+                model=IMAGE_MODEL,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Convert this image into clean markdown text."
+                            },
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/png;base64,{b64}"
+                                }
+                            }
+                        ]
                     }
-                }
-            ]
-        }
-    ]
-)
+                ]
+            )
 
             return jsonify({
                 "markdown": result.choices[0].message.content
