@@ -1,3 +1,5 @@
 flask
 markitdown[all]
 gunicorn
+python-dotenv
+openai
